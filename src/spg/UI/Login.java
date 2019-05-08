@@ -1,15 +1,19 @@
-package spg.UI;
 /**
  * Sample Skeleton for 'login.fxml' Controller Class
  */
+package spg.UI;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 
 public class Login {
@@ -44,5 +48,13 @@ public class Login {
         assert textUsername != null : "fx:id=\"textUsername\" was not injected: check your FXML file 'login.fxml'.";
         assert textPassword != null : "fx:id=\"textPassword\" was not injected: check your FXML file 'login.fxml'.";
 
+        buttonCancel.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("Initial.fxml"));
+                paneLogin.getChildren().setAll(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

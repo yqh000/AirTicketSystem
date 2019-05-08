@@ -46,5 +46,13 @@ public class Initial {
                 e.printStackTrace();
             }
         });
+        buttonAdmin.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("AdminOperation.fxml"));
+                paneInitial.getChildren().setAll(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
