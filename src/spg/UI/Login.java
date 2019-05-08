@@ -1,4 +1,4 @@
-package spg;
+package spg.UI;
 /**
  * Sample Skeleton for 'login.fxml' Controller Class
  */

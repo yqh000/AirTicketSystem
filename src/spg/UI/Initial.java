@@ -1,30 +1,18 @@
 /**
  * Sample Skeleton for 'initial.fxml' Controller Class
  */
-package spg;
-
-import java.lang.Exception;
+package spg.UI;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.io.IOException;
-import java.lang.String;
 
-import com.sun.java.swing.plaf.windows.WindowsButtonUI;
-import javafx.application.Platform;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.JavaFXBuilderFactory;
-import org.omg.PortableServer.THREAD_POLICY_ID;
 
 public class Initial {
 

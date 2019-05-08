@@ -1,4 +1,4 @@
-package spg;
+package spg.UI;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
