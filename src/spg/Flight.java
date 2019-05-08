@@ -17,7 +17,7 @@ import java.util.List;
 public class Flight implements spg.Tool {
     private String flightNum;       //航班号
     private String airways;       //航空公司
-    private String place[] = {"", "", ""};        //起飞、经停、降落地点
+    private String place[] = {"无", "无", "无"};        //起飞、经停、降落地点
     private Timestamp time[] = new Timestamp[4];     //起飞、经停、再飞、到达时间
     private int resTicket[] = {MAXCAPACITY, MAXCAPACITY};//余票
     private String status = "normality";      //航班状态

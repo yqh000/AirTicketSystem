@@ -50,6 +50,15 @@ public class AdminOperation {
         assert buttonSeekFlight != null : "fx:id=\"buttonSeekFlight\" was not injected: check your FXML file 'adminOperation.fxml'.";
         assert buttonCancel != null : "fx:id=\"buttonCancel\" was not injected: check your FXML file 'adminOperation.fxml'.";
 
+        buttonAddFlight.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("AddFlight.fxml"));
+                paneAdminOperation.getChildren().setAll(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         buttonCancel.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("Initial.fxml"));
