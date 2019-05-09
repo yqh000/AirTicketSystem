@@ -13,7 +13,6 @@ import java.sql.Timestamp;
 import javax.swing.*;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,16 +23,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import jdk.internal.org.objectweb.asm.tree.MethodInsnNode;
 import spg.Tool;
 import spg.*;
 
 public class AddFlight implements Tool {
-    ObservableList<String> airwaysList = FXCollections.observableArrayList(AIRWAYS);
-    ObservableList<String> placeList = FXCollections.observableArrayList(PLACE);
-    ObservableList<String> hourList = FXCollections.observableArrayList(HOUR);
-    ObservableList<String> minList = FXCollections.observableArrayList(MIN);
-
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
@@ -104,13 +97,13 @@ public class AddFlight implements Tool {
         assert buttonCancel != null : "fx:id=\"buttonCancel\" was not injected: check your FXML file 'addFlight.fxml'.";
         assert buttonEnsure != null : "fx:id=\"buttonEnsure\" was not injected: check your FXML file 'addFlight.fxml'.";
 
-        choiceAirways.setItems(airwaysList);
-        choicePlace1.setItems(placeList);
-        choicePlace2.setItems(placeList);
-        choiceHour1.setItems(hourList);
-        choiceHour2.setItems(hourList);
-        choiceMin1.setItems(minList);
-        choiceMin2.setItems(minList);
+        choiceAirways.setItems(FXCollections.observableArrayList(AIRWAYS));
+        choicePlace1.setItems(FXCollections.observableArrayList(PLACE));
+        choicePlace2.setItems(FXCollections.observableArrayList(PLACE));
+        choiceHour1.setItems(FXCollections.observableArrayList(HOUR));
+        choiceHour2.setItems(FXCollections.observableArrayList(HOUR));
+        choiceMin1.setItems(FXCollections.observableArrayList(MIN));
+        choiceMin2.setItems(FXCollections.observableArrayList(MIN));
         buttonEnsure.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             FlightOperation operation = new FlightOperation();
             Flight newFlight = new Flight();
@@ -135,6 +128,14 @@ public class AddFlight implements Tool {
             operation.saveFlight(newFlight);//将数据保存在数据库中*/
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("AdminOperation.fxml"));
+                paneAddFlight.getChildren().setAll(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        radioIsStop.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("AddFlightTwo.fxml"));
                 paneAddFlight.getChildren().setAll(root);
             } catch (IOException e) {
                 e.printStackTrace();

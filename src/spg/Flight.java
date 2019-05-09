@@ -21,7 +21,7 @@ public class Flight implements spg.Tool {
     private Timestamp time[] = new Timestamp[4];     //起飞、经停、再飞、到达时间
     private int resTicket[] = {MAXCAPACITY, MAXCAPACITY};//余票
     private String status = "normality";      //航班状态
-    private int price[] = {0, 0};        //票价
+    private int price[] = {0, 0};        //半程票价和全程票价
     private boolean isStop;       //是否经停
     private int waybill[] = new int[MAXCAPACITY];   //乘客名单
     private Queue[] appointList = new Queue[MAXCAPACITY / 2];//预约名单
