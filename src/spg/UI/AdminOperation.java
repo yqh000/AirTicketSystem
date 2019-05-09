@@ -59,6 +59,15 @@ public class AdminOperation {
             }
         });
 
+        buttonCancelFlight.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("DeleteFlight.fxml"));
+                paneAdminOperation.getChildren().setAll(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         buttonCancel.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("Initial.fxml"));

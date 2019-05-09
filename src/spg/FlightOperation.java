@@ -83,7 +83,7 @@ public class FlightOperation {
         return fliList;                                             //返回结果
     }
 
-    public boolean deleteFlightById(String flightNum) {//取消航班
+    public boolean deleteFlight(String flightNum) {//取消航班
         boolean result = false;
         Connection conn = null;
         try {
@@ -101,7 +101,6 @@ public class FlightOperation {
             try {
                 conn.close();
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
