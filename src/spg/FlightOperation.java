@@ -5,14 +5,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.String;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class FlightOperation {
+public class FlightOperation implements Tool {
     private static FlightOperation instance = new FlightOperation();
 
     public static FlightOperation getInstance() {
@@ -43,7 +49,6 @@ public class FlightOperation {
                 result = true;
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally { //finally的用处是不管程序是否出现异常，都要执行finally语句，所以在此处关闭连接
             try {
@@ -55,20 +60,43 @@ public class FlightOperation {
         return result;
     }
 
-    public List<Flight> selectFlight() {       //从数据库中查询所需数据
-        List<Flight> fliList = new ArrayList<Flight>();
+    public Flight selectFlight(String flightNum) {       //通过航班号从数据库中查询所需数据
+        Flight fli = new Flight();
         Connection conn = null;
         try {
             conn = DatabaseConnection.getCon();
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from Flight.tb_flight");//执行SQL并返回结果集
+            ResultSet rs = stmt.executeQuery("select * from Flight.tb_flight where flightNum = ?");//执行SQL并返回结果集
             while (rs.next()) {
-                Flight fli = new Flight();
-                /*fli.(rs.getInt("empId"));
-                fli.setEmpName(rs.getString("empName"));
-                fli.setEmpAge(rs.getInt("empAge"));
-                fli.setEmpSex(rs.getString("empSex"));*/
-                fliList.add(fli);
+                String[] tim = rs.getString("tim").split(",");
+                Timestamp[] time = new Timestamp[4];
+                for (int i = 0; i < 4; i++)
+                    time[i] = Timestamp.valueOf(tim[i]);
+                String[] resTic = rs.getString("resTicket").split(",");
+                int[] resTicket = new int[2];
+                for (int i = 0; i < 2; i++)
+                    resTicket[i] = Integer.parseInt(resTic[i]);
+                String[] pri = rs.getString("price").split(",");
+                int[] price = new int[2];
+                for (int i = 0; i < 2; i++)
+                    price[i] = Integer.parseInt(pri[i]);
+                String[] wayb = rs.getString("waybill").split(",");
+                int[] waybill = new int[MAXCAPACITY];
+                for (int i = 0; i < MAXCAPACITY; i++)
+                    waybill[i] = Integer.parseInt(wayb[i]);
+                String[] appo = rs.getString("appoint").split(",");
+                Queue[] appoint = new Queue[MAXCAPACITY / 2];
+                for (int i = 0; i < MAXCAPACITY / 2; i++)
+                    //appoint
+                fli.setFlightNum(rs.getString("flightNum"));
+                fli.setAirways(rs.getString("airways"));
+                fli.setPlace(rs.getString("place").split(","));
+                fli.setTime(time);
+                fli.setResTicket(resTicket);
+                fli.setStatus(rs.getString("status"));
+                fli.setPrice(price);
+                fli.setIsStop(rs.getBoolean("isStop"));
+                fli.setWaybill(waybill);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,11 +104,10 @@ public class FlightOperation {
             try {
                 conn.close();                                         //关闭连接
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-        return fliList;                                             //返回结果
+        return fli;                                            //返回结果
     }
 
     public boolean deleteFlight(String flightNum) {//取消航班

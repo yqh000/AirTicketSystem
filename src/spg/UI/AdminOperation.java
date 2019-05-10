@@ -31,6 +31,10 @@ public class AdminOperation {
     @FXML // fx:id="buttonCancelFlight"
     private Button buttonCancelFlight; // Value injected by FXMLLoader
 
+    @FXML // fx:id="buttonDelayFlight"
+    private Button buttonDelayFlight; // Value injected by FXMLLoader
+
+
     @FXML // fx:id="buttonUpdateFlight"
     private Button buttonUpdateFlight; // Value injected by FXMLLoader
 
@@ -46,6 +50,7 @@ public class AdminOperation {
         assert paneAdminOperation != null : "fx:id=\"paneAdminOperation\" was not injected: check your FXML file 'adminOperation.fxml'.";
         assert buttonAddFlight != null : "fx:id=\"buttonAddFlight\" was not injected: check your FXML file 'adminOperation.fxml'.";
         assert buttonCancelFlight != null : "fx:id=\"buttonCancelFlight\" was not injected: check your FXML file 'adminOperation.fxml'.";
+        assert buttonDelayFlight != null : "fx:id=\"buttonDelayFlight\" was not injected: check your FXML file 'adminOperation.fxml'.";
         assert buttonUpdateFlight != null : "fx:id=\"buttonUpdateFlight\" was not injected: check your FXML file 'adminOperation.fxml'.";
         assert buttonSeekFlight != null : "fx:id=\"buttonSeekFlight\" was not injected: check your FXML file 'adminOperation.fxml'.";
         assert buttonCancel != null : "fx:id=\"buttonCancel\" was not injected: check your FXML file 'adminOperation.fxml'.";
@@ -62,6 +67,14 @@ public class AdminOperation {
         buttonCancelFlight.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("DeleteFlight.fxml"));
+                paneAdminOperation.getChildren().setAll(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        buttonSeekFlight.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("SeekFlight.fxml"));
                 paneAdminOperation.getChildren().setAll(root);
             } catch (IOException e) {
                 e.printStackTrace();

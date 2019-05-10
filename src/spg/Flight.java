@@ -17,13 +17,13 @@ import java.util.List;
 public class Flight implements spg.Tool {
     private String flightNum;       //航班号
     private String airways;       //航空公司
-    private String place[] = {"无", "无", "无"};        //起飞、经停、降落地点
-    private Timestamp time[] = new Timestamp[4];     //起飞、经停、再飞、到达时间
-    private int resTicket[] = {MAXCAPACITY, MAXCAPACITY};//余票
-    private String status = "normality";      //航班状态
-    private int price[] = {0, 0};        //半程票价和全程票价
+    private String[] place = {"无", "无", "无"};        //起飞、经停、降落地点
+    private Timestamp[] time = new Timestamp[4];     //起飞、经停、再飞、到达时间
+    private int[] resTicket = {MAXCAPACITY, MAXCAPACITY};//余票
+    private String status = "正常";      //航班状态
+    private int[] price = {0, 0};        //半程票价和全程票价
     private boolean isStop;       //是否经停
-    private int waybill[] = new int[MAXCAPACITY];   //乘客名单
+    private int[] waybill = new int[MAXCAPACITY];   //乘客名单
     private Queue[] appointList = new Queue[MAXCAPACITY / 2];//预约名单
 
     public Flight() {
@@ -96,9 +96,9 @@ public class Flight implements spg.Tool {
         return resTicket;
     }
 
-    public void setResTicket(int[] price) {
+    public void setResTicket(int[] resTicket) {
         for (int i = 0; i < 2; i++)
-            this.price[i] = price[i];
+            this.resTicket[i] = resTicket[i];
     }
 
     public String getStatus() {
@@ -111,6 +111,11 @@ public class Flight implements spg.Tool {
 
     public int[] getPrice() {
         return price;
+    }
+
+    public void setPrice(int[] price) {
+        for (int i = 0; i < 2; i++)
+            this.price[i] = price[i];
     }
 
     public boolean getIsStop() {
