@@ -21,10 +21,10 @@ public class Flight implements spg.Tool {
     private Timestamp[] time = new Timestamp[4];     //起飞、经停、再飞、到达时间
     private int[] resTicket = {MAXCAPACITY, MAXCAPACITY};//余票
     private String status = "正常";      //航班状态
-    private int[] price = {0, 0};        //半程票价和全程票价
+    private int[] price = {0, 0};        //全程或第一段票价、第二段票价
     private boolean isStop;       //是否经停
     private int[] waybill = new int[MAXCAPACITY];   //乘客名单
-    private Queue[] appointList = new Queue[MAXCAPACITY / 2];//预约名单
+    private Queue<String> appointList = new LinkedList<String>();//预约名单
 
     public Flight() {
         for (int i = 0; i < 4; i++) {
@@ -131,18 +131,18 @@ public class Flight implements spg.Tool {
     }
 
     public void setWaybill(int[] waybill) {
-        for (int i = 0; i < MAXCAPACITY; i++) {
+        for (int i = 0; i < waybill.length; i++) {
             this.waybill[i] = waybill[i];
         }
     }
 
-    public Queue[] getAppointList() {
+    public Queue getAppointList() {
         return appointList;
     }
 
-    public void setAppointList(Queue[] appointList) {
-        for (int i = 0; i < MAXCAPACITY / 2; i++) {
-            this.appointList[i] = appointList[i];
+    public void setAppointList(String[] appointList) {
+        for (int i = 0; i < appointList.length; i++) {
+            this.appointList.offer(appointList[i]);
         }
     }
 }

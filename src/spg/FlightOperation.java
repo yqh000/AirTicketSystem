@@ -6,13 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.String;
-import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -35,14 +33,22 @@ public class FlightOperation implements Tool {
             conn = DatabaseConnection.getCon();  //建立数据库连接
             String sqlInset = "insert into flight.tb_flight(flightNum, airways, place," +
                     " tim, resTicket, status, price, isStop) values(?, ?, ?, ?, ?, ?, ?, ?)";
+            int[] resTic = fli.getResTicket();
+            String[] resTicket = new String[2];
+            for (int i = 0; i < 2; i++)
+                resTicket[i] = String.valueOf(resTic[i]);
+            int[] pri = fli.getPrice();
+            String[] price = new String[2];
+            for (int i = 0; i < 2; i++)
+                price[i] = String.valueOf(pri[i]);
             PreparedStatement stmt = conn.prepareStatement(sqlInset);   //会抛出异常
             stmt.setString(1, fli.getFlightNum());
             stmt.setString(2, fli.getAirways());
             stmt.setString(3, StringUtils.join(fli.getPlace(), ","));
             stmt.setString(4, StringUtils.join(fli.getTime(), ","));
-            stmt.setString(5, StringUtils.join(fli.getResTicket(), ","));
+            stmt.setString(5, StringUtils.join(resTicket, ","));
             stmt.setString(6, fli.getStatus());
-            stmt.setString(7, StringUtils.join(fli.getPrice(), ","));
+            stmt.setString(7, StringUtils.join(price, ","));
             stmt.setBoolean(8, fli.getIsStop());
             int i = stmt.executeUpdate();            //执行插入数据操作，返回影响的行数
             if (i == 1) {
@@ -60,13 +66,13 @@ public class FlightOperation implements Tool {
         return result;
     }
 
-    public Flight selectFlight(String flightNum) {       //通过航班号从数据库中查询所需数据
+    public Flight seekFlightByNum(String flightNum1) {       //通过航班号从数据库中查询所需数据
         Flight fli = new Flight();
         Connection conn = null;
         try {
             conn = DatabaseConnection.getCon();
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from Flight.tb_flight where flightNum = ?");//执行SQL并返回结果集
+            ResultSet rs = stmt.executeQuery("select * from Flight.tb_flight where flightNum = '" + flightNum1 + "'");//执行SQL并返回结果集
             while (rs.next()) {
                 String[] tim = rs.getString("tim").split(",");
                 Timestamp[] time = new Timestamp[4];
@@ -80,14 +86,22 @@ public class FlightOperation implements Tool {
                 int[] price = new int[2];
                 for (int i = 0; i < 2; i++)
                     price[i] = Integer.parseInt(pri[i]);
-                String[] wayb = rs.getString("waybill").split(",");
-                int[] waybill = new int[MAXCAPACITY];
-                for (int i = 0; i < MAXCAPACITY; i++)
-                    waybill[i] = Integer.parseInt(wayb[i]);
-                String[] appo = rs.getString("appoint").split(",");
-                Queue[] appoint = new Queue[MAXCAPACITY / 2];
-                for (int i = 0; i < MAXCAPACITY / 2; i++)
-                    //appoint
+                String d = rs.getString("waybill");
+                if (d != null) {
+                    String[] wayb = d.split(",");
+                    int[] waybill = new int[MAXCAPACITY];
+                    for (int i = 0; i < wayb.length; i++)
+                        waybill[i] = Integer.parseInt(wayb[i]);
+                    fli.setWaybill(waybill);
+                } else {
+                    int[] a = {0};
+                    fli.setWaybill(a);
+                }
+                d = rs.getString("appoint");
+                if (d != null) {
+                    String[] appoint = d.split(",");
+                    fli.setAppointList(appoint);
+                }
                 fli.setFlightNum(rs.getString("flightNum"));
                 fli.setAirways(rs.getString("airways"));
                 fli.setPlace(rs.getString("place").split(","));
@@ -96,7 +110,6 @@ public class FlightOperation implements Tool {
                 fli.setStatus(rs.getString("status"));
                 fli.setPrice(price);
                 fli.setIsStop(rs.getBoolean("isStop"));
-                fli.setWaybill(waybill);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -162,7 +162,7 @@ public class AddFlightTwo implements Tool {
                     Integer.parseInt(choiceMin4.getValue()), 0, 0);
             int price[] = new int[2];
             price[0] = Integer.parseInt(textPrice.getText());
-            price[1] = Integer.parseInt(textPrice2.getText());
+            price[1] = Integer.parseInt(textPrice2.getText()) - Integer.parseInt(textPrice.getText());
             newFlight.addFlight(textFlightNum.getText(), choiceAirways.getValue(),
                     radioIsStop.isSelected(), place, time, price);
             operation.saveFlight(newFlight);//将数据保存在数据库中*/
