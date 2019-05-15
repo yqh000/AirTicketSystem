@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/AirTicketSystem/META-INF/AirTicketSystem.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spg/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spg/Flight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spg/UI/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spg/UI/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/yqh/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/yqh/Ticket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/yqh/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/yqh/User.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -467,12 +462,12 @@
       <workItem from="1557626437254" duration="10630000" />
       <workItem from="1557728639737" duration="2798000" />
       <workItem from="1557747169176" duration="150000" />
-      <workItem from="1557928079875" duration="62000" />
+      <workItem from="1557928079875" duration="578000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64536000" />
+    <option name="totallyTimeSpent" value="65052000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
