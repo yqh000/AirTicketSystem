@@ -24,7 +24,9 @@ public class Flight implements spg.Tool {
     private int[] price = {0, 0};        //全程或第一段票价、第二段票价
     private boolean isStop;       //是否经停
     private int[] waybill = new int[MAXCAPACITY];   //乘客名单
-    private Queue<String> appointList = new LinkedList<String>();//预约名单
+    private Queue<String> appointList = new LinkedList<String>();//FULL预约名单
+    private Queue<String> appointList1 = new LinkedList<String>();//FIRST预约名单
+    private Queue<String> appointList2 = new LinkedList<String>();//SECOND预约名单
 
     public Flight() {
         for (int i = 0; i < 4; i++) {
@@ -143,6 +145,26 @@ public class Flight implements spg.Tool {
     public void setAppointList(String[] appointList) {
         for (int i = 0; i < appointList.length; i++) {
             this.appointList.offer(appointList[i]);
+        }
+    }
+
+    public Queue getAppointList1() {
+        return appointList1;
+    }
+
+    public void setAppointList1(String[] appointList1) {
+        for (int i = 0; i < appointList1.length; i++) {
+            this.appointList1.offer(appointList1[i]);
+        }
+    }
+
+    public Queue getAppointList2() {
+        return appointList2;
+    }
+
+    public void setAppointList2(String[] appointList2) {
+        for (int i = 0; i < appointList2.length; i++) {
+            this.appointList2.offer(appointList2[i]);
         }
     }
 }
